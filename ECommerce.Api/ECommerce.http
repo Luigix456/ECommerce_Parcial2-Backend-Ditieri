@@ -1,0 +1,60 @@
+@host = https://localhost:7074
+@token = PEGAR_TOKEN_AQUI
+
+### Login admin
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@test.com",
+  "password": "Admin123!"
+}
+
+### Categorías
+GET {{host}}/api/categories
+
+### Productos públicos
+GET {{host}}/api/products
+
+### Productos paginados
+GET {{host}}/api/products/paged?page=1&pageSize=2
+
+### Crear producto como Admin
+POST {{host}}/api/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Teclado mecánico",
+  "description": "Teclado RGB switch blue",
+  "price": 65000,
+  "stock": 15,
+  "categoryId": "a1b2c3d4-0000-0000-0000-000000000001"
+}
+
+### Login usuario común
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@test.com",
+  "password": "User123!"
+}
+
+### Crear orden
+POST {{host}}/api/orders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "productId": "PEGAR_ID_PRODUCTO",
+      "quantity": 1
+    }
+  ]
+}
+
+### Mis órdenes
+GET {{host}}/api/orders/my-orders
+Authorization: Bearer {{token}}

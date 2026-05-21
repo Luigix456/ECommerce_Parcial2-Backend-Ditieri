@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ECommerce.Application",
+    "\\ECommerce.Application\\Interfaces",
+    "\\ECommerce.Application\\UseCases\\Auth"
+  ],
+  "SelectedNode": "\\ECommerce.Application\\Interfaces\\IUserRepository.cs",
+  "PreviewInSolutionExplorer": false
+}
