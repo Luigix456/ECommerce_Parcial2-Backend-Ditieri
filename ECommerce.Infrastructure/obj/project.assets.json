@@ -2844,11 +2844,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER AÑO\\Backend\\ECommerce_Completo\\ECommerce_Completo\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER AÑO\\Backend\\ECommerce_Completo\\ECommerce_Backend\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj",
       "projectName": "ECommerce.Infrastructure",
-      "projectPath": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER AÑO\\Backend\\ECommerce_Completo\\ECommerce_Completo\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj",
+      "projectPath": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER AÑO\\Backend\\ECommerce_Completo\\ECommerce_Backend\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\Luis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER AÑO\\Backend\\ECommerce_Completo\\ECommerce_Completo\\ECommerce.Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER AÑO\\Backend\\ECommerce_Completo\\ECommerce_Backend\\ECommerce.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2870,8 +2870,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER AÑO\\Backend\\ECommerce_Completo\\ECommerce_Completo\\ECommerce.Application\\ECommerce.Application.csproj": {
-              "projectPath": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER AÑO\\Backend\\ECommerce_Completo\\ECommerce_Completo\\ECommerce.Application\\ECommerce.Application.csproj"
+            "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER AÑO\\Backend\\ECommerce_Completo\\ECommerce_Backend\\ECommerce.Application\\ECommerce.Application.csproj": {
+              "projectPath": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER AÑO\\Backend\\ECommerce_Completo\\ECommerce_Backend\\ECommerce.Application\\ECommerce.Application.csproj"
             }
           }
         }

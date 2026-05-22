@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "O0pYvWFYYSM=",
+  "dgSpecHash": "yFYEC45/tjk=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER AÑO\\Backend\\ECommerce_Completo\\ECommerce_Completo\\ECommerce.Api\\ECommerce.Api.csproj",
+  "projectFilePath": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER AÑO\\Backend\\ECommerce_Completo\\ECommerce_Backend\\ECommerce.Api\\ECommerce.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Luis\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Luis\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512",

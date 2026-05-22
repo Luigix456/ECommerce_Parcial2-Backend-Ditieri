@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "X5n+f97yCZc=",
+  "dgSpecHash": "X7byJwFE7LY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER AÑO\\Backend\\ECommerce_Completo\\ECommerce_Completo\\ECommerce.Application\\ECommerce.Application.csproj",
+  "projectFilePath": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER AÑO\\Backend\\ECommerce_Completo\\ECommerce_Backend\\ECommerce.Application\\ECommerce.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Luis\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512"
   ],
