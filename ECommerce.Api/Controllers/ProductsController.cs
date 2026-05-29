@@ -1,125 +1,41 @@
-using ECommerce.Api.DTOs;
-using ECommerce.Api.Mappers;
-using ECommerce.Application.UseCases.Products.Commands;
-using ECommerce.Application.UseCases.Products.Queries;
+using ECommerce.Application.Commands;
+using ECommerce.Application.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ECommerce.Api.Controllers;
+namespace ECommerce.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 public class ProductsController : ControllerBase
 {
-    private readonly GetAllProductsQueryUseCase _getAllProducts;
-    private readonly GetProductByIdQueryUseCase _getProductById;
-    private readonly GetPagedProductsQueryUseCase _getPagedProducts;
-    private readonly SearchProductsQueryUseCase _searchProducts;
-    private readonly CreateProductCommandUseCase _createProduct;
-    private readonly UpdateProductCommandUseCase _updateProduct;
-    private readonly DeleteProductCommandUseCase _deleteProduct;
+    private readonly IMediator _mediator;
 
-    public ProductsController(
-        GetAllProductsQueryUseCase getAllProducts,
-        GetProductByIdQueryUseCase getProductById,
-        GetPagedProductsQueryUseCase getPagedProducts,
-        SearchProductsQueryUseCase searchProducts,
-        CreateProductCommandUseCase createProduct,
-        UpdateProductCommandUseCase updateProduct,
-        DeleteProductCommandUseCase deleteProduct)
+    public ProductsController(IMediator mediator)
     {
-        _getAllProducts = getAllProducts;
-        _getProductById = getProductById;
-        _getPagedProducts = getPagedProducts;
-        _searchProducts = searchProducts;
-        _createProduct = createProduct;
-        _updateProduct = updateProduct;
-        _deleteProduct = deleteProduct;
-    }
-
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProductDto>>> GetAll(CancellationToken ct)
-    {
-        var products = await _getAllProducts.ExecuteAsync(new GetAllProductsQuery(), ct);
-        return Ok(products.Select(ProductMapper.ToDto));
+        _mediator = mediator;
     }
 
     [HttpGet("paged")]
-    public async Task<ActionResult<PagedResponse<ProductDto>>> GetPaged(
+    public async Task<IActionResult> GetPaged(
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 10,
-        CancellationToken ct = default)
+        CancellationToken ct = default
+    )
     {
-        var paged = await _getPagedProducts.ExecuteAsync(
-            new GetPagedProductsQuery(page, pageSize),
-            ct);
-
-        return Ok(ProductMapper.ToPagedResponse(paged));
-    }
-
-    [HttpGet("search")]
-    public async Task<ActionResult<IEnumerable<ProductDto>>> Search(
-        [FromQuery] string term,
-        CancellationToken ct)
-    {
-        var products = await _searchProducts.ExecuteAsync(
-            new SearchProductsQuery(term),
-            ct);
-
-        return Ok(products.Select(ProductMapper.ToDto));
-    }
-
-    [HttpGet("{id:guid}")]
-    public async Task<ActionResult<ProductDto>> GetById(Guid id, CancellationToken ct)
-    {
-        var product = await _getProductById.ExecuteAsync(
-            new GetProductByIdQuery(id),
-            ct);
-
-        return Ok(ProductMapper.ToDto(product));
+        var result = await _mediator.Send(new GetPagedProductsQuery(page, pageSize), ct);
+        return Ok(result);
     }
 
     [Authorize(Roles = "Admin")]
     [HttpPost]
-    public async Task<ActionResult<ProductDto>> Create([FromBody] CreateProductRequest request, CancellationToken ct)
+    public async Task<IActionResult> Create(
+        [FromBody] CreateProductCommand command,
+        CancellationToken ct
+    )
     {
-        var product = await _createProduct.ExecuteAsync(
-            new CreateProductCommand(
-                request.Name,
-                request.Description,
-                request.Price,
-                request.Stock,
-                request.CategoryId),
-            ct);
-
-        return CreatedAtAction(
-            nameof(GetById),
-            new { id = product.Id },
-            ProductMapper.ToDto(product));
-    }
-
-    [Authorize(Roles = "Admin")]
-    [HttpPut("{id:guid}")]
-    public async Task<IActionResult> Update(Guid id, [FromBody] UpdateProductRequest request, CancellationToken ct)
-    {
-        await _updateProduct.ExecuteAsync(
-            new UpdateProductCommand(
-                id,
-                request.Name,
-                request.Description,
-                request.Price,
-                request.Stock,
-                request.CategoryId),
-            ct);
-
-        return NoContent();
-    }
-
-    [Authorize(Roles = "Admin")]
-    [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> Delete(Guid id, CancellationToken ct)
-    {
-        await _deleteProduct.ExecuteAsync(new DeleteProductCommand(id), ct);
-        return NoContent();
+        var result = await _mediator.Send(command, ct);
+        return Created($"/api/products/{result.Id}", result);
     }
 }

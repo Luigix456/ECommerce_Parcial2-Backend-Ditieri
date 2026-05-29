@@ -19,15 +19,16 @@ public class GlobalExceptionHandler : IExceptionHandler
     public async ValueTask<bool> TryHandleAsync(
         HttpContext httpContext,
         Exception exception,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken
+    )
     {
         _logger.LogError(exception, "Unhandled exception: {Message}", exception.Message);
 
         if (exception is ValidationException validationException)
         {
             httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-            var errors = validationException.Errors
-                .GroupBy(e => e.PropertyName)
+            var errors = validationException
+                .Errors.GroupBy(e => e.PropertyName)
                 .ToDictionary(g => g.Key, g => g.Select(e => e.ErrorMessage).ToArray());
 
             await httpContext.Response.WriteAsJsonAsync(
@@ -35,9 +36,10 @@ public class GlobalExceptionHandler : IExceptionHandler
                 {
                     Status = StatusCodes.Status400BadRequest,
                     Title = "Validation failed",
-                    Instance = httpContext.Request.Path
+                    Instance = httpContext.Request.Path,
                 },
-                cancellationToken);
+                cancellationToken
+            );
             return true;
         }
 
@@ -46,7 +48,7 @@ public class GlobalExceptionHandler : IExceptionHandler
             NotFoundException ex => (StatusCodes.Status404NotFound, ex.Message),
             DomainException ex => (StatusCodes.Status422UnprocessableEntity, ex.Message),
             UnauthorizedAccessException => (StatusCodes.Status401Unauthorized, "Unauthorized"),
-            _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred")
+            _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred"),
         };
 
         httpContext.Response.StatusCode = statusCode;
@@ -55,9 +57,10 @@ public class GlobalExceptionHandler : IExceptionHandler
             {
                 Status = statusCode,
                 Title = title,
-                Instance = httpContext.Request.Path
+                Instance = httpContext.Request.Path,
             },
-            cancellationToken);
+            cancellationToken
+        );
 
         return true;
     }

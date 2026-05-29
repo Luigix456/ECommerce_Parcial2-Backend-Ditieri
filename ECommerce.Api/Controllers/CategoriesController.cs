@@ -1,36 +1,24 @@
-using ECommerce.Api.DTOs;
-using ECommerce.Api.Mappers;
-using ECommerce.Application.Interfaces;
-using ECommerce.Domain.Exceptions;
+using ECommerce.Application.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ECommerce.Api.Controllers;
+namespace ECommerce.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 public class CategoriesController : ControllerBase
 {
-    private readonly ICategoryRepository _categoryRepository;
+    private readonly IMediator _mediator;
 
-    public CategoriesController(ICategoryRepository categoryRepository)
+    public CategoriesController(IMediator mediator)
     {
-        _categoryRepository = categoryRepository;
+        _mediator = mediator;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CategoryDto>>> GetAll(CancellationToken ct)
+    public async Task<IActionResult> GetAll(CancellationToken ct)
     {
-        var categories = await _categoryRepository.GetAllAsync(ct);
-        return Ok(categories.Select(CategoryMapper.ToDto));
-    }
-
-    [HttpGet("{id:guid}")]
-    public async Task<ActionResult<CategoryDto>> GetById(Guid id, CancellationToken ct)
-    {
-        var category = await _categoryRepository.GetByIdAsync(id, ct);
-        if (category is null)
-            throw new NotFoundException("Category", id);
-
-        return Ok(CategoryMapper.ToDto(category));
+        var result = await _mediator.Send(new GetAllCategoriesQuery(), ct);
+        return Ok(result);
     }
 }

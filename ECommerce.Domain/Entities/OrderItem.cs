@@ -12,20 +12,29 @@ public class OrderItem : BaseEntity
 
     private OrderItem() { }
 
-    public OrderItem(Guid orderId, Guid productId, decimal unitPrice, int quantity)
+    private OrderItem(Guid orderId, Guid productId, decimal unitPrice, int quantity)
     {
         if (orderId == Guid.Empty)
             throw new DomainRuleException("La orden es obligatoria.");
+
         if (productId == Guid.Empty)
             throw new DomainRuleException("El producto es obligatorio.");
+
         if (unitPrice <= 0)
             throw new DomainRuleException("El precio unitario debe ser mayor a cero.");
+
         if (quantity <= 0)
             throw new DomainRuleException("La cantidad debe ser mayor a cero.");
 
+        Id = Guid.NewGuid();
         OrderId = orderId;
         ProductId = productId;
         UnitPrice = unitPrice;
         Quantity = quantity;
+    }
+
+    public static OrderItem Create(Guid orderId, Guid productId, decimal unitPrice, int quantity)
+    {
+        return new OrderItem(orderId, productId, unitPrice, quantity);
     }
 }

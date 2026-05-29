@@ -1,69 +1,76 @@
+using System;
+using System.Collections.Generic;
 using System.Security.Claims;
-using ECommerce.Api.DTOs;
-using ECommerce.Api.Mappers;
-using ECommerce.Application.Interfaces;
-using ECommerce.Application.UseCases.Orders;
-using ECommerce.Domain.Exceptions;
+using System.Threading;
+using System.Threading.Tasks;
+using ECommerce.Application.Commands;
+using ECommerce.Application.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Api.Controllers;
 
 [ApiController]
-[Authorize]
 [Route("api/[controller]")]
+[Authorize]
 public class OrdersController : ControllerBase
 {
-    private readonly CreateOrderUseCase _createOrderUseCase;
-    private readonly IOrderRepository _orderRepository;
+    private readonly IMediator _mediator;
 
-    public OrdersController(CreateOrderUseCase createOrderUseCase, IOrderRepository orderRepository)
+    public OrdersController(IMediator mediator)
     {
-        _createOrderUseCase = createOrderUseCase;
-        _orderRepository = orderRepository;
+        _mediator = mediator;
     }
 
     [HttpPost]
-    public async Task<ActionResult<OrderDto>> Create([FromBody] CreateOrderRequest request, CancellationToken ct)
+    public async Task<IActionResult> Create(
+        [FromBody] CreateOrderRequest request,
+        CancellationToken ct
+    )
     {
-        var userId = GetCurrentUserId();
-        var items = request.Items
-            .Select(i => new CreateOrderItemInput(i.ProductId, i.Quantity))
-            .ToList();
+        var userId = GetAuthenticatedUserId();
 
-        var order = await _createOrderUseCase.ExecuteAsync(userId, items, ct);
-        return CreatedAtAction(nameof(GetById), new { id = order.Id }, OrderMapper.ToDto(order));
+        var command = new CreateOrderCommand(
+            userId,
+            request.Items.Select(i => new CreateOrderItemCommand(i.ProductId, i.Quantity)).ToList()
+        );
+
+        var result = await _mediator.Send(command, ct);
+
+        return Ok(result);
     }
 
     [HttpGet("my-orders")]
-    public async Task<ActionResult<IEnumerable<OrderDto>>> GetMyOrders(CancellationToken ct)
+    public async Task<IActionResult> GetMyOrders(CancellationToken ct)
     {
-        var userId = GetCurrentUserId();
-        var orders = await _orderRepository.GetByUserIdAsync(userId, ct);
-        return Ok(orders.Select(OrderMapper.ToDto));
+        var userId = GetAuthenticatedUserId();
+
+        var query = new GetMyOrdersQuery(userId);
+
+        var result = await _mediator.Send(query, ct);
+
+        return Ok(result);
     }
 
-    [HttpGet("{id:guid}")]
-    public async Task<ActionResult<OrderDto>> GetById(Guid id, CancellationToken ct)
+    private Guid GetAuthenticatedUserId()
     {
-        var order = await _orderRepository.GetByIdWithItemsAsync(id, ct);
-        if (order is null)
-            throw new NotFoundException("Order", id);
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        var userId = GetCurrentUserId();
-        var isAdmin = User.IsInRole("Admin");
-        if (!isAdmin && order.UserId != userId)
-            return Forbid();
+        if (string.IsNullOrWhiteSpace(userIdClaim))
+            throw new UnauthorizedAccessException("Usuario no autenticado.");
 
-        return Ok(OrderMapper.ToDto(order));
+        return Guid.Parse(userIdClaim);
     }
+}
 
-    private Guid GetCurrentUserId()
-    {
-        var userIdValue = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (!Guid.TryParse(userIdValue, out var userId))
-            throw new UnauthorizedAccessException();
+public class CreateOrderRequest
+{
+    public List<CreateOrderItemRequest> Items { get; set; } = new();
+}
 
-        return userId;
-    }
+public class CreateOrderItemRequest
+{
+    public Guid ProductId { get; set; }
+    public int Quantity { get; set; }
 }

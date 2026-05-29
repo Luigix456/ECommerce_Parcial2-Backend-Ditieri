@@ -1,4 +1,4 @@
-using ECommerce.Domain.Exceptions;
+using ECommerce.Domain.ValueObjects;
 
 namespace ECommerce.Domain.Entities;
 
@@ -12,30 +12,25 @@ public class User : BaseEntity
 
     private User() { }
 
-    public User(string email, string name, string passwordHash, string role = "User")
+    public static User Create(string email, string name, string passwordHash, string role = "User")
     {
         if (string.IsNullOrWhiteSpace(email))
-            throw new DomainRuleException("El email es obligatorio.");
-        if (!email.Contains('@'))
-            throw new DomainRuleException("El email no tiene formato válido.");
+            throw new ArgumentException("El email es obligatorio.");
+
         if (string.IsNullOrWhiteSpace(name))
-            throw new DomainRuleException("El nombre es obligatorio.");
+            throw new ArgumentException("El nombre es obligatorio.");
+
         if (string.IsNullOrWhiteSpace(passwordHash))
-            throw new DomainRuleException("El password hash es obligatorio.");
-        if (role is not "User" and not "Admin")
-            throw new DomainRuleException("El rol debe ser User o Admin.");
+            throw new ArgumentException("El password hash es obligatorio.");
 
-        Email = email.Trim().ToLower();
-        Name = name.Trim();
-        PasswordHash = passwordHash;
-        Role = role;
-        CreatedAt = DateTime.UtcNow;
-    }
-
-    public void ChangeRole(string role)
-    {
-        if (role is not "User" and not "Admin")
-            throw new DomainRuleException("El rol debe ser User o Admin.");
-        Role = role;
+        return new User
+        {
+            Id = Guid.NewGuid(),
+            Email = email.Trim().ToLower(),
+            Name = name.Trim(),
+            PasswordHash = passwordHash,
+            Role = string.IsNullOrWhiteSpace(role) ? "User" : role,
+            CreatedAt = DateTime.UtcNow,
+        };
     }
 }

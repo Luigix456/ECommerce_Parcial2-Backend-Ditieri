@@ -1,9 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ECommerce.Domain",
+    "\\ECommerce.Application\\Commands",
+    "\\ECommerce.Application\\DTOs",
+    "\\ECommerce.Application\\Mappings",
+    "\\ECommerce.Application\\Queries",
     "\\ECommerce.Domain\\Entities",
-    "\\ECommerce.Infrastructure"
+    "\\ECommerce.Infrastructure\\Persistence"
   ],
+  "SelectedNode": "\\ECommerce.Application",
   "PreviewInSolutionExplorer": false
 }

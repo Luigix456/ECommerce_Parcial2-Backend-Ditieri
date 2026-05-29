@@ -165,6 +165,8 @@ C:\Users\Luis\Documents\CATOLICA y DEMAS\CATOLICA\3ER AÑO\Backend\ECommerce_Com
 C:\Users\Luis\Documents\CATOLICA y DEMAS\CATOLICA\3ER AÑO\Backend\ECommerce_Completo\ECommerce_Backend\ECommerce.Api\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
 C:\Users\Luis\Documents\CATOLICA y DEMAS\CATOLICA\3ER AÑO\Backend\ECommerce_Completo\ECommerce_Backend\ECommerce.Api\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\Luis\Documents\CATOLICA y DEMAS\CATOLICA\3ER AÑO\Backend\ECommerce_Completo\ECommerce_Backend\ECommerce.Api\bin\Debug\net8.0\Humanizer.dll
+C:\Users\Luis\Documents\CATOLICA y DEMAS\CATOLICA\3ER AÑO\Backend\ECommerce_Completo\ECommerce_Backend\ECommerce.Api\bin\Debug\net8.0\MediatR.dll
+C:\Users\Luis\Documents\CATOLICA y DEMAS\CATOLICA\3ER AÑO\Backend\ECommerce_Completo\ECommerce_Backend\ECommerce.Api\bin\Debug\net8.0\MediatR.Contracts.dll
 C:\Users\Luis\Documents\CATOLICA y DEMAS\CATOLICA\3ER AÑO\Backend\ECommerce_Completo\ECommerce_Backend\ECommerce.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Luis\Documents\CATOLICA y DEMAS\CATOLICA\3ER AÑO\Backend\ECommerce_Completo\ECommerce_Backend\ECommerce.Api\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Luis\Documents\CATOLICA y DEMAS\CATOLICA\3ER AÑO\Backend\ECommerce_Completo\ECommerce_Backend\ECommerce.Api\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll

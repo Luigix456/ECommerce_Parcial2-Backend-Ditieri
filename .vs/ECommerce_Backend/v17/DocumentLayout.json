@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER A\u00D1O\\Backend\\ECommerce_Completo\\ECommerce_Backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER A\u00D1O\\Backend\\ECommerce_Completo\\ECommerce_Backend\\ECommerce.Domain\\Entities\\Category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ECommerce.Domain\\Entities\\Category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER A\u00D1O\\Backend\\ECommerce_Completo\\ECommerce_Backend\\ECommerce.Application\\DTOs\\OrderItemDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ECommerce.Application\\DTOs\\OrderItemDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,14 +27,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Category.cs",
-              "DocumentMoniker": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER A\u00D1O\\Backend\\ECommerce_Completo\\ECommerce_Backend\\ECommerce.Domain\\Entities\\Category.cs",
-              "RelativeDocumentMoniker": "ECommerce.Domain\\Entities\\Category.cs",
-              "ToolTip": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER A\u00D1O\\Backend\\ECommerce_Completo\\ECommerce_Backend\\ECommerce.Domain\\Entities\\Category.cs",
-              "RelativeToolTip": "ECommerce.Domain\\Entities\\Category.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "OrderItemDto.cs",
+              "DocumentMoniker": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER A\u00D1O\\Backend\\ECommerce_Completo\\ECommerce_Backend\\ECommerce.Application\\DTOs\\OrderItemDto.cs",
+              "RelativeDocumentMoniker": "ECommerce.Application\\DTOs\\OrderItemDto.cs",
+              "ToolTip": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER A\u00D1O\\Backend\\ECommerce_Completo\\ECommerce_Backend\\ECommerce.Application\\DTOs\\OrderItemDto.cs",
+              "RelativeToolTip": "ECommerce.Application\\DTOs\\OrderItemDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-21T23:15:36.056Z",
+              "WhenOpened": "2026-05-29T02:16:28.641Z",
               "EditorCaption": ""
             }
           ]

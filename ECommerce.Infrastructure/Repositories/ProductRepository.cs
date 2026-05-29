@@ -8,71 +8,82 @@ namespace ECommerce.Infrastructure.Repositories;
 
 public class ProductRepository : IProductRepository
 {
-    private readonly ApplicationDbContext _ctx;
-    public ProductRepository(ApplicationDbContext ctx) => _ctx = ctx;
+    private readonly ApplicationDbContext _context;
+
+    public ProductRepository(ApplicationDbContext context)
+    {
+        _context = context;
+    }
 
     public async Task<Product?> GetByIdAsync(Guid id, CancellationToken ct = default)
-        => await _ctx.Products
-            .Include(p => p.Category)
+    {
+        return await _context
+            .Products.Include(p => p.Category)
             .FirstOrDefaultAsync(p => p.Id == id, ct);
+    }
 
     public async Task<IEnumerable<Product>> GetAllAsync(CancellationToken ct = default)
-        => await _ctx.Products
-            .AsNoTracking()
-            .Include(p => p.Category)
-            .Where(p => p.IsActive)
-            .OrderBy(p => p.Name)
-            .ToListAsync(ct);
-
-    public async Task<IEnumerable<Product>> SearchByNameAsync(string term, CancellationToken ct = default)
-        => await _ctx.Products
-            .AsNoTracking()
-            .Include(p => p.Category)
-            .Where(p => p.IsActive && p.Name.Contains(term))
-            .OrderBy(p => p.Name)
-            .ToListAsync(ct);
-
-    public async Task<PagedResult<Product>> GetPagedAsync(int page, int pageSize, CancellationToken ct = default)
     {
-        if (page <= 0) page = 1;
-        if (pageSize <= 0) pageSize = 10;
-
-        var query = _ctx.Products
-            .AsNoTracking()
+        return await _context
+            .Products.AsNoTracking()
             .Include(p => p.Category)
-            .Where(p => p.IsActive)
-            .OrderBy(p => p.Name);
+            .OrderBy(p => p.Name)
+            .ToListAsync(ct);
+    }
+
+    public async Task<PagedResult<Product>> GetPagedAsync(
+        int page,
+        int pageSize,
+        CancellationToken ct = default
+    )
+    {
+        var query = _context.Products.AsNoTracking().Include(p => p.Category).OrderBy(p => p.Name);
 
         var totalCount = await query.CountAsync(ct);
-        var items = await query
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
-            .ToListAsync(ct);
+
+        var items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(ct);
 
         return new PagedResult<Product>(items, totalCount, page, pageSize);
     }
 
+    public async Task<IEnumerable<Product>> SearchByNameAsync(
+        string term,
+        CancellationToken ct = default
+    )
+    {
+        return await _context
+            .Products.AsNoTracking()
+            .Include(p => p.Category)
+            .Where(p => p.Name.Contains(term))
+            .OrderBy(p => p.Name)
+            .ToListAsync(ct);
+    }
+
     public async Task<bool> ExistsAsync(Guid id, CancellationToken ct = default)
-        => await _ctx.Products.AnyAsync(p => p.Id == id, ct);
+    {
+        return await _context.Products.AnyAsync(p => p.Id == id, ct);
+    }
 
     public async Task AddAsync(Product product, CancellationToken ct = default)
     {
-        await _ctx.Products.AddAsync(product, ct);
-        await _ctx.SaveChangesAsync(ct);
+        await _context.Products.AddAsync(product, ct);
+        await _context.SaveChangesAsync(ct);
     }
 
     public async Task UpdateAsync(Product product, CancellationToken ct = default)
     {
-        _ctx.Products.Update(product);
-        await _ctx.SaveChangesAsync(ct);
+        _context.Products.Update(product);
+        await _context.SaveChangesAsync(ct);
     }
 
     public async Task DeleteAsync(Guid id, CancellationToken ct = default)
     {
-        var product = await _ctx.Products.FindAsync(new object[] { id }, ct);
-        if (product is null) return;
+        var product = await _context.Products.FindAsync(new object[] { id }, ct);
 
-        product.Deactivate();
-        await _ctx.SaveChangesAsync(ct);
+        if (product is null)
+            return;
+
+        _context.Products.Remove(product);
+        await _context.SaveChangesAsync(ct);
     }
 }

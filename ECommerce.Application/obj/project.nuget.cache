@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "X7byJwFE7LY=",
+  "dgSpecHash": "X0eFxXfTRp4=",
   "success": true,
   "projectFilePath": "C:\\Users\\Luis\\Documents\\CATOLICA y DEMAS\\CATOLICA\\3ER AÑO\\Backend\\ECommerce_Completo\\ECommerce_Backend\\ECommerce.Application\\ECommerce.Application.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Luis\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512",
+    "C:\\Users\\Luis\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.11.0\\fluentvalidation.dependencyinjectionextensions.11.11.0.nupkg.sha512",
+    "C:\\Users\\Luis\\.nuget\\packages\\mediatr\\12.4.1\\mediatr.12.4.1.nupkg.sha512",
+    "C:\\Users\\Luis\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
     "C:\\Users\\Luis\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512"
   ],
   "logs": []
